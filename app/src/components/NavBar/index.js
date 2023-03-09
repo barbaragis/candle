@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 import CartWidget  from '../CartWidget';
 import './styles.scss';
 
@@ -11,26 +12,31 @@ function NavBar () {
       <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
           <div className="logo">
-            <a href="/">
+            <Link to='/'>
               <img src="/logo-candle.png" alt="Site logo" height="80" width="100" />
-            </a>
+            </Link>
             </div>
         <div className="collapse navbar-collapse nav justify-content-center" id="navbarNavDropdown">
           <ul className="navbar-nav ">
             <li className="nav-item ">
-              <a className="nav-link active" aria-current="page" href="/">Home</a>
+              <Link className="nav-link active" aria-current="page" to='/' >Home</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/"> Nuestros productos </a>
+              <Link className="nav-link" to='/categoria/velas' > Velas </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/"> Contacto </a>
+              <Link className="nav-link" to='/categoria/difusores' > Difusores </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to='/categoria/repuestos'> Repuestos </Link>
             </li>
           </ul>
         </div>
     </div>
   <div className="App">
+    <Link link className="nav-link" to='cart'>
     <CartWidget />
+    </Link>
   </div>
   </nav>
 </div>

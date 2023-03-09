@@ -1,9 +1,7 @@
-import './styles.scss';
-import React , {useState, useEffect} from 'react';
-import ItemList  from '../ItemList';
-import ItemDetailContainer from '../ItemDetail';
-import Titulo from '../Titulo';
-import { useParams } from 'react-router-dom';
+import React, {useEffect  , useState } from "react";
+import { useParams } from "react-router-dom";
+import ItemDetail from "../ItemDetail";
+
 
 
 const productos = [
@@ -27,7 +25,7 @@ const productos = [
   },
   {
     id:4,
-    nombre:"Mandarine",
+    nombre: "Mandarine",
     imagen: "/mandarin.webp",
     categoria: 'Velas',
   },
@@ -64,34 +62,22 @@ const productos = [
   
 ];
 
+const ItemDetailContainer = () => {
+    const [data , setData ] = useState ({});
+    const { detalleId } = useParams();
+  
+    useEffect (() => {
+      const getData = new Promise((resolve) => {
+        setTimeout (() =>{
+          resolve(productos);
+      } ,2000);
+    });
 
-export const ItemListContainer = ({ texto }) => {
-  const [data , setData ] = useState ([]);
-  const { categoriaId } = useParams();
+    getData.then((res) => setData(res.find((producto) => producto.id === parseInt(detalleId))),
+    ); 
+  }, [detalleId]);
+  
+    return <ItemDetail data={data} />;
+};
 
-  useEffect (() => {
-    const getData = new Promise((resolve) => {
-      setTimeout (() => {
-        resolve(productos);
-    } ,1000);
-  });
-    
-  if (categoriaId) {
-    getData.then ((res) => 
-      setData(res.filter((producto) => producto.categoria === categoriaId)),
-    );
-    } else { 
-      getData.then ((res) => setData(res));
-  }
-}, [categoriaId]);
-
-
-  return (
-    <div className="item-list-container">
-      <Titulo greeting={texto} />
-      <ItemList data={data}  />
-  </div>
-  );
-}
-
-  export default ItemListContainer;
+export default ItemDetailContainer;
